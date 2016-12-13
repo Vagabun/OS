@@ -3,9 +3,11 @@
 if [[ $# -eq 0 ]]
 then
   echo -e "please specify version of R language\nexample: ./install_r 3.0.0"
+  echo "place this script into your home folder and mkdir distrib" 
   exit
 fi
 
+path=$(pwd)
 ver=$1
 name="R-"$ver
 distr_name=$name".tar.gz"
@@ -37,3 +39,19 @@ fi
 
 echo "start installing "$name
 tar -xzf $distr_name
+installPath=$path"/R_lang/"$name
+mkdir $installPath
+cd $name
+echo "configuring "$name
+#on some machines we can get configure error with F77 compiler, readline, zlib, bzip2, liblzma, pcre, libcurl
+./configure --prefix=$installPath --with-x=no --with-readline=no >/dev/null
+echo "make"
+make >/dev/null
+echo "make install"
+make install >/dev/null
+cd ../../
+echo "create symbolic link"
+ln -s "R_lang/"$name"/bin/R" $name
+echo "working with PATH variable"
+export PATH=$installPath"/bin":$PATH
+
