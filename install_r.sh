@@ -52,6 +52,13 @@ make install >/dev/null
 cd ../../
 echo "create symbolic link"
 ln -s "R_lang/"$name"/bin/R" $name
-echo "working with PATH variable"
-export PATH=$installPath"/bin":$PATH
-
+echo "setting PATH variable for R..."
+path_var=$installPath"/bin"
+grepout=$(cat ~/.bash_profile | grep $path_var)
+if [[ -z $grepout ]]
+then
+  echo "export PATH=$path_var:$PATH" >>~/.bash_profile
+else
+  echo "bash_profile already has PATH variable for R"
+fi
+    
