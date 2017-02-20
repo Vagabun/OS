@@ -1,6 +1,5 @@
 #include <unistd.h>
 #include <fcntl.h>
-#include <fcntl.h>
 
 #define MAX_BUF 200
 
