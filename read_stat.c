@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 /* Eventually useless function
 void move_pointer (FILE *status) {
@@ -20,6 +22,8 @@ char *make_filename (int id) {
 
 int main () {
 
+	int fd;
+	char *myfifo = "/tmp/myfifo";
 	char key_1[] = "Name:";
 	char key_2[] = "PPid:";
 	char buf[50];	
@@ -49,6 +53,12 @@ int main () {
 		status = fopen(make_filename(ppid), "r");
 		if (status == NULL) break;
 	}
-	printf("%s\n", tree);
+
+	mkfifo(myfifo, 0666);
+	fd = open(myfifo, O_WRONLY);
+	write(fd, tree, sizeof(tree));
+       	close(fd);
+	unlink(myfifo);	
+	//printf("%s\n", tree);
 	return 0;
 }
