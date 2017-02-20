@@ -24,6 +24,7 @@ int main () {
 	char key_2[] = "PPid:";
 	char buf[50];	
 	char tree[200];
+	char id[10];
 	int ppid;
 	int pid = getpid();
 	FILE *status;
@@ -35,26 +36,19 @@ int main () {
 			if (strcmp(buf, key_1) == 0) {
 				fscanf(status, "%s", buf);
 				strcat(tree, buf);
-				strcat(tree, " ");
-				printf("%s\n", buf);
 			}
 			else if (strcmp(buf, key_2) == 0) {
 				fscanf(status, "%s", buf);
-
-				//strcat (tree, buf);
+				sprintf(id, "(%s)", buf);
+				strcat(tree, id);
+				strcat(tree, " ");
 				ppid = atoi(buf);
-				//strcpy(ppid, buf);
-				//printf("%d\n", ppid);
 			}
 		}
 		fclose(status);
-
-		//printf("%s\n", filename);
 		status = fopen(make_filename(ppid), "r");
+		if (status == NULL) break;
 	}
-		
-
 	printf("%s\n", tree);
-	if (status == NULL) perror("Error opening file");
 	return 0;
 }
