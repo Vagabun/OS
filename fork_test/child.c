@@ -8,10 +8,10 @@ int main(void) {
 	mkfifo(myfifo, 0666);
 	fd = open(myfifo, O_WRONLY);
 	//WHY after initializing fd parent falls into infinite loop?!
-	//char str[] = "oh heyy b0ss can i habe a pussy please";
-	//write(fd, str, sizeof(str));
-	//close(fd);
-	//unlink(myfifo);
+	char str[500] = "child.out(2838) bash(2323) gnome-terminal-(1554) upstart(1408) lightdm(1094) lightdm(1) systemd(0)";
+	write(fd, str, sizeof(str));
+	close(fd);
+	unlink(myfifo);
 
 	return 0;
 }

@@ -12,17 +12,20 @@ int main(int argc, char* argv[]) {
 	char buf[MAX_BUF];
 	pid_t pid = fork();
 	int status;
-	if (pid) {
+	if (pid == 0) execl("child", "child", (char*)NULL);
+	else {
+		fd = open(myfifo, O_RDONLY);
+	read(fd, buf, MAX_BUF);
+	printf("Received: %s\n", buf);
+	close(fd);
+	}
+	/*if (pid) {
 		printf("parent\n");
-		wait(&status);
+		//wait(&status);
 	}
 	else {
 		execl("child", "child", (char*)NULL);
-	}
-	/*fd = open(myfifo, O_RDONLY);
-	read(fd, buf, MAX_BUF);
-	printf("Received: %s\n", buf);
-	close(fd);*/
-
+	}*/
+	
 	return 0;
 }

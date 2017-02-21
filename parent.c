@@ -5,21 +5,15 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-#define MAX_BUF 200
+#define MAX_BUF 500
 
-int main() {
+int main(int argc, char* argv[]) {
 	int fd;
-	char *myfifo = "/tmp/myfifo";
+	char* myfifo = "/tmp/myfifo";
 	char buf[MAX_BUF];
     	pid_t pid = fork();
-    	int status;
-	printf("%d\n", pid);
-    	if (pid) {
-              printf("parent\n");
-              wait(&status);
-    	}
+    	if (pid == 0) execl("child.out", "child.out", (char*)NULL);
     	else {
-          	execl("/home/orsay/Desktop/OS/child.out", "child.out", (char*)NULL);
 		fd = open(myfifo, O_RDONLY);
 		read(fd, buf, MAX_BUF);
 		printf("%s\n", buf);

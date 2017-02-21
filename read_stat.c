@@ -14,26 +14,27 @@ void move_pointer (FILE *status) {
 }
 */
 
-char *make_filename (int id) {
-	char *filename = malloc (sizeof(char) * 20);
+char* make_filename (int id) {
+	char* filename = malloc (sizeof(char) * 20);
 	sprintf(filename, "/proc/%d/status", id);
 	return filename;
 }
 
-int main () {
+int main (void) {
 
 	int fd;
 	char *myfifo = "/tmp/myfifo";
 	char key_1[] = "Name:";
 	char key_2[] = "PPid:";
 	char buf[50];	
-	char tree[200];
+	char tree[500];
 	char id[10];
 	int ppid;
 	int pid = getpid();
 	FILE *status;
 	status = fopen(make_filename(pid), "r");
 	
+	//tree of processes is not correct. FIX 	
 	while (status != NULL) {
 		while (!feof(status)) {
 			fscanf(status, "%s", buf);
@@ -57,7 +58,7 @@ int main () {
 	mkfifo(myfifo, 0666);
 	fd = open(myfifo, O_WRONLY);
 	write(fd, tree, sizeof(tree));
-       	close(fd);
+   	close(fd);
 	unlink(myfifo);	
 	//printf("%s\n", tree);
 	return 0;
