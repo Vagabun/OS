@@ -1,4 +1,0 @@
-open a file, set a line counter to zero, then start reading the file
-after each line increase the counter and if I find my line, then I start scanf and get neeeded information about a process
-
-how to take exact info with scanf I still don't know

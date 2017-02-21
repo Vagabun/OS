@@ -15,17 +15,10 @@ int main(int argc, char* argv[]) {
 	if (pid == 0) execl("child", "child", (char*)NULL);
 	else {
 		fd = open(myfifo, O_RDONLY);
-	read(fd, buf, MAX_BUF);
-	printf("Received: %s\n", buf);
-	close(fd);
+		read(fd, buf, MAX_BUF);
+		printf("Received: %s\n", buf);
+		close(fd);
 	}
-	/*if (pid) {
-		printf("parent\n");
-		//wait(&status);
-	}
-	else {
-		execl("child", "child", (char*)NULL);
-	}*/
 	
 	return 0;
 }

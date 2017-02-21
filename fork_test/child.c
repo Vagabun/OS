@@ -7,7 +7,6 @@ int main(void) {
 	char * myfifo = "/tmp/myfifo";
 	mkfifo(myfifo, 0666);
 	fd = open(myfifo, O_WRONLY);
-	//WHY after initializing fd parent falls into infinite loop?!
 	char str[500] = "child.out(2838) bash(2323) gnome-terminal-(1554) upstart(1408) lightdm(1094) lightdm(1) systemd(0)";
 	write(fd, str, sizeof(str));
 	close(fd);
