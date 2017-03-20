@@ -9,7 +9,7 @@
 
 int main(int argc, char* argv[]) {
 	int fd;
-	char* myfifo = "/tmp/myfifo";
+	char* myfifo = "/tmp/newfifo";
 	char buf[MAX_BUF];
     	pid_t pid = fork();
     	if (pid == 0) execl("child.out", "child.out", (char*)NULL);

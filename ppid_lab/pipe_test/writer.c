@@ -5,7 +5,8 @@
 
 int main() {
 	int fd;
-	char * myfifo = "/tmp/myfifo";
+	//char * myfifo = "/tmp/myfifo";
+	char* myfifo = "~/Desktop/myfifo";
 	mkfifo(myfifo, 0666);
 	fd = open(myfifo, O_WRONLY);
 	char str[] = "oh heyy b0ss can i habe a pussy please";
